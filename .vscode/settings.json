@@ -1,0 +1,6 @@
+{
+    "typescript.tsdk": "node_modules\\typescript\\lib","workbench.editor.customLabels.patterns": {
+  "**/**.ts": "${dirname}/${filename}", // route.ts
+  "**/**.tsx": "${dirname}/${filename}" // layout.tsx, page.tsx, template.tsx
+}
+}
