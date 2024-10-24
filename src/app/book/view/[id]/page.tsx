@@ -8,7 +8,7 @@ interface BookPageProps {
   };
 }
 
-export default async function BookPage({ params }: BookPageProps) {
+export default async function BookPage({ params }:any) {
   const { id } =await  params;
 
   // Make a POST request to fetch book details
