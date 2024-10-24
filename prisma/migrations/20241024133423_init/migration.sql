@@ -8,5 +8,6 @@ CREATE TABLE "Book" (
     "languages" TEXT NOT NULL,
     "media_type" TEXT NOT NULL,
     "download_count" INTEGER NOT NULL,
+    "textContent" TEXT,
     "textPath" TEXT
 );

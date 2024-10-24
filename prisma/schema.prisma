@@ -8,13 +8,14 @@ generator client {
 }
 
 model Book {
-  id            Int     @id @default(autoincrement())
+  id            Int     @id
   title         String
   authors       String
   subjects      String
   bookshelves   String
   languages     String
-  mediaType     String @map("media_type")
+  mediaType     String  @map("media_type")
   downloadCount Int     @map("download_count")
-  textPath      String? // Path to the text file
+  textContent   String? 
+  textPath      String? 
 }

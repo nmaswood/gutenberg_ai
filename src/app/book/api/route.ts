@@ -4,7 +4,7 @@ import path from 'path';
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request): Promise<Response> {
+export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const bookId: string | null = searchParams.get('bookId');
 
@@ -13,13 +13,13 @@ export async function GET(request: Request): Promise<Response> {
     }
 
     try {
-        // Check if the book exists in the database
+        // Check if the book exists in the database using the bookId
         const existingBook = await prisma.book.findUnique({
             where: { id: parseInt(bookId) },
         });
 
+        // Return existing book data if found
         if (existingBook) {
-            // Return the existing book data if found
             return new Response(JSON.stringify(existingBook), {
                 status: 200,
                 headers: {
@@ -37,9 +37,7 @@ export async function GET(request: Request): Promise<Response> {
         }
 
         const book: Book = metadataData.results[0];
-console.log(book.formats)
-        // Check for the text/plain; charset=utf-8 format
-        const textUrl: string | undefined = book.formats['text/plain; charset=utf-8'];
+        const textUrl: string | undefined = book.formats['text/plain; charset=utf-8'] || book.formats['text/plain; charset=us-ascii'];
 
         if (!textUrl) {
             return new Response('Text format not available', { status: 404 });
@@ -50,16 +48,19 @@ console.log(book.formats)
         const contentData: string = await contentResponse.text();
 
         // Create a directory to save the text file
-        const dirPath = path.join(__dirname, './.tmp/books/', bookId);
+        const dirPath = path.join('./.tmp/books/', bookId);
         fs.mkdirSync(dirPath, { recursive: true });
 
-        // Save the content to a file
+        // Save the content to a file if it doesn't already exist
         const textFilePath = path.join(dirPath, 'text.txt');
-        fs.writeFileSync(textFilePath, contentData);
-        console.log(textFilePath)
-        // Save the book metadata and file path to the database
+        if (!fs.existsSync(textFilePath)) {
+            fs.writeFileSync(textFilePath, contentData);
+        }
+
+        // Save the book metadata to the database with the provided ID
         const newBook = await prisma.book.create({
             data: {
+                id: parseInt(bookId), // Use the ID provided by the user
                 title: book.title,
                 authors: book.authors.map((author) => author.name).join(', '),
                 subjects: book.subjects.join(', '),
@@ -68,6 +69,7 @@ console.log(book.formats)
                 mediaType: book.media_type,
                 downloadCount: book.download_count,
                 textPath: textFilePath,
+                textContent: contentData,
             },
         });
 
