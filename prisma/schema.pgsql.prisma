@@ -22,3 +22,9 @@ model Book {
   textContent   String? 
   textPath      String? 
 }
+model Search {
+  id        Int      @id @default(autoincrement())
+  query     String   @unique
+  results   String   // Store JSON-stringified results
+  createdAt DateTime @default(now())
+}

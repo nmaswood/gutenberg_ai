@@ -1,6 +1,6 @@
 datasource db {
   provider = "sqlite"
-  url      = env("DATABASE_URL") 
+  url      = env("SQLITE_DATABASE_URL") 
 }
 
 generator client {
@@ -18,4 +18,10 @@ model Book {
   downloadCount Int     @map("download_count")
   textContent   String? 
   textPath      String? 
+}
+model Search {
+  id        Int      @id @default(autoincrement())
+  query     String   @unique
+  results   String   // Store JSON-stringified results
+  createdAt DateTime @default(now())
 }

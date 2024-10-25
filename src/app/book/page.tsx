@@ -27,7 +27,7 @@ export default function HomePage() {
   const handleSearch = async () => {
     if (!query.trim()) return; // Don't search for empty queries
 
-    const res = await fetch(`https://gutendex.com/books/?search=${query}`);
+    const res = await fetch(`/book/search?query=${query}`);
     const data = await res.json();
     setBooks(data.results);
 

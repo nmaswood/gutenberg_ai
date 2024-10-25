@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "db_prepare:sqlite": "prisma migrate dev --schema=./prisma/schema.sqlite.prisma --name=dev && prisma generate --schema=./prisma/schema.sqlite.prisma",
-    "db_prepare:postgres": "prisma migrate deploy --schema=./prisma/schema.pgsql.prisma && prisma generate --schema=./prisma/schema.pgsql.prisma",
+    "db_prepare:postgres": "prisma db push --schema=./prisma/schema.pgsql.prisma --accept-data-loss && prisma generate --schema=./prisma/schema.pgsql.prisma",
     "deploy": "npm run db_prepare:postgres && npm run start"
   },
   "dependencies": {
