@@ -48,14 +48,14 @@ export async function GET(request: Request) {
         const contentData: string = await contentResponse.text();
 
         // Create a directory to save the text file
-        const dirPath = path.join('./.tmp/books/', bookId);
+    /*     const dirPath = path.join('./.tmp/books/', bookId);
         fs.mkdirSync(dirPath, { recursive: true });
 
         // Save the content to a file if it doesn't already exist
         const textFilePath = path.join(dirPath, 'text.txt');
         if (!fs.existsSync(textFilePath)) {
             fs.writeFileSync(textFilePath, contentData);
-        }
+        } */
 
         // Save the book metadata to the database with the provided ID
         const newBook = await prisma.book.create({
