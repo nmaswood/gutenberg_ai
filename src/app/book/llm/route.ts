@@ -18,7 +18,7 @@ export async function GET(request: Request) {
                 messages: [
                     {
                         "role": "system",
-                        "content": "You are a helpful assistant, you will summarize the title given by user, you will have start with Sarj.ai service: "
+                        "content": "You are a helpful assistant, you will summarize the title given by user: "
                     },
                     { role: 'user', content: userMessage }], // Send the default prompt
             }),
