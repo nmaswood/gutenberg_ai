@@ -1,0 +1,12 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Containerfile
+    ports:
+      - "3000:3000" 
+    environment:
+      NODE_ENV: ${NODE_ENV} 
+      LLM_API_KEY: ${LLM_API_KEY}
+      DATABASE_URL: ${DATABASE_URL}
+

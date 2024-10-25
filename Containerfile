@@ -5,7 +5,7 @@ FROM node:lts-alpine AS builder
 WORKDIR /app
 
 # Copy only the necessary files for installing dependencies
-COPY package.json package-lock.json ./
+COPY package.json ./
 
 
 # Install dependencies
