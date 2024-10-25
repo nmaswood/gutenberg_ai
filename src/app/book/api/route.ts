@@ -68,7 +68,7 @@ export async function GET(request: Request) {
                 languages: book.languages.join(', '),
                 mediaType: book.media_type,
                 downloadCount: book.download_count,
-                textPath: textFilePath,
+                //textPath: textFilePath,
                 textContent: contentData,
             },
         });
