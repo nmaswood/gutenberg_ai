@@ -1,0 +1,27 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("SQLITE_DATABASE_URL") 
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Book {
+  id            Int     @id
+  title         String
+  authors       String
+  subjects      String
+  bookshelves   String
+  languages     String
+  mediaType     String  @map("media_type")
+  downloadCount Int     @map("download_count")
+  textContent   String? 
+  textPath      String? 
+}
+model Search {
+  id        Int      @id @default(autoincrement())
+  query     String   @unique
+  results   String   // Store JSON-stringified results
+  createdAt DateTime @default(now())
+}
