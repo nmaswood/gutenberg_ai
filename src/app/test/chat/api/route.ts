@@ -2,7 +2,7 @@ export async function POST(req: Request) {
    // const userMessage = "Hello world"; // Define a default prompt
     const userMessage =await req.text(); // Define a default prompt
     try {
-        const response  = await fetch('https://api.sambanova.ai/v1/chat/completions', {
+        const response  = await fetch(`${process.env.LLM_BASE_URL}/chat/completions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export async function POST(req: Request) {
             },
             body: JSON.stringify({
                 stream: false,
-                model: "Meta-Llama-3.1-8B-Instruct", // Model is defined here
+                model:process.env.LLM_MODEL, // Model is defined here
                 messages: [
                     {
                         "role": "system",

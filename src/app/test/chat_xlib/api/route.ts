@@ -5,12 +5,12 @@ export async function POST(req: Request) {
     const userMessage = await req.text(); // Get user message from request
     const client = new OpenAI({
         apiKey: process.env.LLM_API_KEY,
-        baseURL: 'https://api.sambanova.ai/v1',
+        baseURL: process.env.LLM_BASE_URL ,
     });
 
     try {
         const stream = client.beta.chat.completions.stream({
-            model: 'Meta-Llama-3.1-8B-Instruct',
+            model: process.env.LLM_MODEL!,
             messages: [
                 { role: 'system', content: 'You are a helpful assistant' },
                 { role: 'user', content: userMessage } // Use dynamic user message

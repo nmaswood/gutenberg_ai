@@ -2,7 +2,7 @@ export async function POST(req:Request) {
     const userMessage = await req.text(); // Get user message from request
     console.log(userMessage)
     try {
-        const response = await fetch('https://api.sambanova.ai/v1/chat/completions', {
+        const response = await fetch(`${process.env.LLM_BASE_URL}/chat/completions`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ export async function POST(req:Request) {
             },
             body: JSON.stringify({
                 stream: true,
-                model: "Meta-Llama-3.1-8B-Instruct",
+                model: process.env.LLM_MODEL,
                 messages: [
                     { role: 'system', content: "You are a helpful assistant" },
                     { role: 'user', content: userMessage }
