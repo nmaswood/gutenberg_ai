@@ -7,7 +7,9 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db_prepare:sqlite": "prisma migrate dev --schema=./prisma/schema.sqlite.prisma && prisma generate --schema=./prisma/schema.sqlite.prisma",
+    "db_prepare:postgres": "prisma migrate dev --schema=./prisma/schema.pgsql.prisma && prisma generate --schema=./prisma/schema.pgsql.prisma"
   },
   "dependencies": {
     "@prisma/client": "^5.21.1",
